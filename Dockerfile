@@ -1,7 +1,7 @@
 # Docker image for almalinux using the rhel template
 ARG IMAGE_NAME="almalinux"
 ARG PHP_SERVER="almalinux"
-ARG BUILD_DATE="202509161149"
+ARG BUILD_DATE="202511291148"
 ARG LANGUAGE="en_US.UTF-8"
 ARG TIMEZONE="America/New_York"
 ARG WWW_ROOT_DIR="/usr/local/share/httpd/default"
@@ -79,9 +79,9 @@ RUN set -e; \
   yum makecache && yum install -yy bash; \
   SH_CMD="$(which sh 2>/dev/null||command -v sh 2>/dev/null)"; \
   BASH_CMD="$(which bash 2>/dev/null||command -v bash 2>/dev/null)"; \
-  [ -x "$BASH_CMD" ] && /usr/local/bin/symlink "$BASH_CMD" "/bin/sh" || true; \
-  [ -x "$BASH_CMD" ] && /usr/local/bin/symlink "$BASH_CMD" "/usr/bin/sh" || true; \
-  [ -x "$BASH_CMD" ] && [ "$SH_CMD" != "/bin/sh" ] && /usr/local/bin/symlink "$BASH_CMD" "$SH_CMD" || true; \
+  [ -x "$BASH_CMD" ] && symlink "$BASH_CMD" "/bin/sh" || true; \
+  [ -x "$BASH_CMD" ] && symlink "$BASH_CMD" "/usr/bin/sh" || true; \
+  [ -x "$BASH_CMD" ] && [ "$SH_CMD" != "/bin/sh"] && symlink "$BASH_CMD" "$SH_CMD" || true; \
   [ -n "$BASH_CMD" ] && sed -i 's|root:x:.*|root:x:0:0:root:/root:'$BASH_CMD'|g' "/etc/passwd" || true
 
 ENV SHELL="/bin/bash"
@@ -226,12 +226,12 @@ LABEL org.opencontainers.image.authors="${LICENSE}"
 LABEL org.opencontainers.image.created="${BUILD_DATE}"
 LABEL org.opencontainers.image.version="${BUILD_VERSION}"
 LABEL org.opencontainers.image.schema-version="${BUILD_VERSION}"
-LABEL org.opencontainers.image.url="docker.io"
-LABEL org.opencontainers.image.source="docker.io"
+LABEL org.opencontainers.image.url="https://hub.docker.com/casjaysdevdocker/almalinux"
+LABEL org.opencontainers.image.source="https://hub.docker.com/casjaysdevdocker/almalinux"
 LABEL org.opencontainers.image.vcs-type="Git"
 LABEL org.opencontainers.image.revision="${BUILD_VERSION}"
-LABEL org.opencontainers.image.source="https://github.com/casjaysdev/almalinux"
-LABEL org.opencontainers.image.documentation="https://github.com/casjaysdev/almalinux"
+LABEL org.opencontainers.image.source="https://github.com/casjaysdevdocker/almalinux"
+LABEL org.opencontainers.image.documentation="https://github.com/casjaysdevdocker/almalinux"
 LABEL com.github.containers.toolbox="false"
 
 ENV ENV=~/.bashrc
@@ -261,6 +261,5 @@ EXPOSE ${SERVICE_PORT} ${ENV_PORTS}
 
 STOPSIGNAL SIGRTMIN+3
 
-CMD [ "tail", "-f", "/dev/null" ]
 ENTRYPOINT [ "tini", "-p", "SIGTERM","--", "/usr/local/bin/entrypoint.sh" ]
 HEALTHCHECK --start-period=10m --interval=5m --timeout=15s CMD [ "/usr/local/bin/entrypoint.sh", "healthcheck" ]
