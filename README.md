@@ -21,7 +21,7 @@ dockermgr update os almalinux
 ```shell
 mkdir -p "/var/lib/srv/root/docker/casjaysdev/almalinux/latest"
 git clone "https://github.com/dockermgr/almalinux" "$HOME/.local/share/CasjaysDev/dockermgr/almalinux"
-cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/almalinux/rootfs/." "/var/lib/srv/root/docker/casjaysdev/almalinux/latest/"
+cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/almalinux/dockerfs/." "/var/lib/srv/root/docker/casjaysdev/almalinux/latest/"
 docker run -d \
 --restart always \
 --privileged \

@@ -66,7 +66,7 @@ ENV HOSTNAME="casjaysdev-almalinux"
 USER ${USER}
 WORKDIR /root
 
-COPY ./rootfs/usr/local/bin/. /usr/local/bin/
+COPY ./dockerfs/usr/local/bin/. /usr/local/bin/
 
 RUN set -e; \
   echo "Setting up prerequisites"; \
@@ -123,7 +123,7 @@ RUN echo "Setting up dev system"; \
   pkg="$(curl -q -LSsf "https://github.com/pkmgr/centos/raw/main/lists/development.list")"; \
   [ -n "$pkg" ] && yum install -yy --skip-broken "$pkg"
 
-COPY ./rootfs/. /
+COPY ./dockerfs/. /
 COPY ./Dockerfile.8 /root/docker/Dockerfile
 
 RUN echo "Updating system files "; \
