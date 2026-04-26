@@ -113,6 +113,7 @@ RUN echo "Initializing packages before copying files to image"; \
 
 RUN echo "Setting up dev system"; \
   if [ -f "/usr/local/bin/pkmgr" ] ; then rm -Rf "/usr/local/bin/pkmgr"; fi; \
+  rm -f /etc/yum.repos.d/*crb*.repo 2>/dev/null || true; \
   bash -c "$(curl -q -LSsf "https://github.com/casjay-base/centos/raw/main/root/.local/bin/fetch-repo-file")"; \
   rm -f /etc/yum.repos.d/*crb*.repo 2>/dev/null || true; \
   dnf clean all 2>/dev/null || true; \
