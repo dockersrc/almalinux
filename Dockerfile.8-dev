@@ -115,6 +115,7 @@ RUN echo "Setting up dev system"; \
   if [ -f "/usr/local/bin/pkmgr" ] ; then rm -Rf "/usr/local/bin/pkmgr"; fi; \
   rm -f /etc/yum.repos.d/*crb*.repo 2>/dev/null || true; \
   bash -c "$(curl -q -LSsf "https://github.com/casjay-base/centos/raw/main/root/.local/bin/fetch-repo-file")"; \
+  sed -i 's|/crb|/powertools|Ig; s|\[casjay-os-crb\]|[casjay-os-powertools]|g; s|AlmaLinux CRB|AlmaLinux PowerTools|g' /etc/yum.repos.d/*.repo 2>/dev/null || true; \
   rm -f /etc/yum.repos.d/*crb*.repo 2>/dev/null || true; \
   dnf clean all 2>/dev/null || true; \
   [ ! -d  "/usr/local/share/CasjaysDev/scripts" ] && \
