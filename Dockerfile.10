@@ -54,7 +54,7 @@ ARG PHP_VERSION
 ARG PHP_SERVER
 ARG SHELL_OPTS
 
-ARG PACK_LIST="bash-completion git curl wget sudo unzip tini iproute net-tools glibc-langpack-en pinentry nail postfix python3-pip certbot ca-certificates "
+ARG PACK_LIST="bash-completion git curl wget sudo unzip tini iproute net-tools glibc-langpack-en pinentry nail postfix python3-pip ca-certificates "
 
 ENV ENV=~/.profile
 ENV SHELL="/bin/sh"
