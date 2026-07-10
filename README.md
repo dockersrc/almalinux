@@ -19,17 +19,17 @@ dockermgr update os almalinux
 ## Install and run container
   
 ```shell
-mkdir -p "/var/lib/srv/root/docker/casjaysdev/almalinux/latest"
+mkdir -p "/srv/root/docker/casjaysdev/almalinux/latest"
 git clone "https://github.com/dockermgr/almalinux" "$HOME/.local/share/CasjaysDev/dockermgr/almalinux"
-cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/almalinux/rootfs/." "/var/lib/srv/root/docker/casjaysdev/almalinux/latest/"
+cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/almalinux/rootfs/." "/srv/root/docker/casjaysdev/almalinux/latest/"
 docker run -d \
 --restart always \
 --privileged \
 --name casjaysdev-almalinux-latest \
 --hostname almalinux \
 -e TZ=${TIMEZONE:-America/New_York} \
--v "/var/lib/srv/root/docker/casjaysdev/almalinux/latest/data:/data:z" \
--v "/var/lib/srv/root/docker/casjaysdev/almalinux/latest/config:/config:z" \
+-v "/srv/root/docker/casjaysdev/almalinux/latest/data:/data:z" \
+-v "/srv/root/docker/casjaysdev/almalinux/latest/config:/config:z" \
 casjaysdev/almalinux:latest
 ```
   
@@ -45,8 +45,8 @@ services:
       - TZ=America/New_York
       - HOSTNAME=almalinux
     volumes:
-      - "/var/lib/srv/root/docker/casjaysdev/almalinux/latest/data:/data:z"
-      - "/var/lib/srv/root/docker/casjaysdev/almalinux/latest/config:/config:z"
+      - "/srv/root/docker/casjaysdev/almalinux/latest/data:/data:z"
+      - "/srv/root/docker/casjaysdev/almalinux/latest/config:/config:z"
     restart: always
 ```
   
